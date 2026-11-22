@@ -1,0 +1,162 @@
+[
+  {
+    "set": "A",
+    "urutan": 1,
+    "tp": "TP1",
+    "teks": "Berapa kali kita sebaiknya menyikat gigi dalam satu hari?",
+    "opsi": [
+      "1 kali saat mandi sore",
+      "2 kali, yaitu sesudah sarapan dan sebelum tidur",
+      "Hanya saat gigi terasa kotor"
+    ],
+    "benar": 1,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Sikat gigi minimal 2 kali sehari: sesudah sarapan pagi dan sebelum tidur malam.",
+    "status": "DRAFT"
+  },
+  {
+    "set": "A",
+    "urutan": 2,
+    "tp": "TP1",
+    "teks": "Berapa lama waktu yang baik untuk menyikat seluruh bagian gigi kita?",
+    "opsi": [
+      "Sekitar 30 detik saja",
+      "Sekitar 2 menit",
+      "Lebih dari 10 menit"
+    ],
+    "benar": 1,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Menyikat gigi dianjurkan sekitar 2 menit agar seluruh permukaan gigi bersih merata.",
+    "status": "DRAFT"
+  },
+  {
+    "set": "A",
+    "urutan": 3,
+    "tp": "TP2",
+    "teks": "Berapa banyak pasta gigi berfluorida yang sebaiknya digunakan anak-anak saat menyikat gigi?",
+    "opsi": [
+      "Sebesar biji kacang polong",
+      "Penuh sepanjang seluruh bulu sikat",
+      "Setengah wadah pasta gigi"
+    ],
+    "benar": 0,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Untuk anak-anak, cukup gunakan pasta gigi berfluorida sebesar biji kacang polong (pea-sized).",
+    "status": "DRAFT"
+  },
+  {
+    "set": "A",
+    "urutan": 4,
+    "tp": "TP2",
+    "teks": "Kapan sikat gigi sebaiknya diganti dengan yang baru?",
+    "opsi": [
+      "Setiap 1 tahun sekali",
+      "Tiap sekitar 3 bulan atau saat bulu sikat sudah mengembang",
+      "Menunggu sampai gagang sikat gigi patah"
+    ],
+    "benar": 1,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Sikat gigi perlu diganti sekitar 3 bulan sekali atau jika bulu sikat sudah mekar/rusak.",
+    "status": "DRAFT"
+  },
+  {
+    "set": "A",
+    "urutan": 5,
+    "tp": "TP3",
+    "teks": "Makanan atau minuman apa yang paling baik dan menyehatkan bagi gigi kita?",
+    "opsi": [
+      "Permen manis dan minuman bersoda",
+      "Cokelat lengket dan es sirup manis",
+      "Air putih, sayuran hijau, dan buah segar berserat"
+    ],
+    "benar": 2,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Air putih, buah berserat, sayur, susu, dan keju adalah makanan ramah gigi.",
+    "status": "DRAFT"
+  },
+  {
+    "set": "A",
+    "urutan": 6,
+    "tp": "TP3",
+    "teks": "Mengapa makanan manis dan lengket dapat berbahaya bagi kesehatan gigi?",
+    "opsi": [
+      "Karena mudah menempel lama di gigi dan diubah kuman menjadi asam perusak gigi",
+      "Karena membuat gigi kita berubah warna menjadi pelangi",
+      "Karena makanan manis membuat sikat gigi menjadi licin"
+    ],
+    "benar": 0,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Gula yang menempel lama diubah oleh bakteri menjadi asam yang melarutkan email gigi.",
+    "status": "DRAFT"
+  },
+  {
+    "set": "A",
+    "urutan": 7,
+    "tp": "TP4",
+    "teks": "Apakah yang dimaksud dengan plak pada gigi?",
+    "opsi": [
+      "Lapisan kuman/bakteri yang tipis dan menempel pada permukaan gigi",
+      "Lapisan vitamin pelindung gigi",
+      "Air liur yang mengering saat tidur"
+    ],
+    "benar": 0,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Plak adalah lapisan lengket tak berwarna yang mengandung jutaan bakteri/kuman.",
+    "status": "DRAFT"
+  },
+  {
+    "set": "A",
+    "urutan": 8,
+    "tp": "TP4",
+    "teks": "Bagaimana gigi berlubang bisa terjadi?",
+    "opsi": [
+      "Bakteri plak memakan sisa gula dan menghasilkan zat asam yang merusak lapisan luar gigi",
+      "Gigi terkena tetesan air dingin saat kehujanan",
+      "Gigi berlubang karena sering tersenyum lebar"
+    ],
+    "benar": 0,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Gula + Bakteri plak -> Asam perusak lapisan email gigi -> Gigi berlubang.",
+    "status": "DRAFT"
+  },
+  {
+    "set": "A",
+    "urutan": 9,
+    "tp": "TP5",
+    "teks": "Seberapa sering kita sebaiknya memeriksakan gigi ke dokter gigi?",
+    "opsi": [
+      "Hanya jika gigi sudah sakit parah dan bengkak",
+      "Sekitar 6 bulan sekali meskipun gigi tidak terasa sakit",
+      "Cukup satu kali seumur hidup"
+    ],
+    "benar": 1,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Pemeriksaan rutin ke dokter gigi dianjurkan tiap 6 bulan sekali untuk pencegahan.",
+    "status": "DRAFT"
+  },
+  {
+    "set": "A",
+    "urutan": 10,
+    "tp": "TP5",
+    "teks": "Apa yang dilakukan dokter gigi saat kita melakukan pemeriksaan rutin?",
+    "opsi": [
+      "Memeriksa kebersihan gigi, mendeteksi lubang sejak dini, dan memberi petunjuk merawat gigi",
+      "Selalu langsung mencabut semua gigi kita",
+      "Hanya menyuruh kita minum obat pahit"
+    ],
+    "benar": 0,
+    "gambar": null,
+    "audio": null,
+    "penjelasan_internal": "Dokter gigi memeriksa kesehatan gigi secara menyeluruh dan mencegah kerusakan sejak awal.",
+    "status": "DRAFT"
+  }
+]

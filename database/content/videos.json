@@ -1,0 +1,110 @@
+[
+  {
+    "id": "video-1",
+    "urutan": 1,
+    "judul": "Kenalan dengan Gigi Sehat Kita",
+    "deskripsi": "Mengenal bagian-bagian gigi anak, lapisan email yang kuat, dan mengapa gigi susu sangat penting dirawat.",
+    "tp": "TP1",
+    "durasi_detik": 120,
+    "file": "kenalan_gigi.mp4",
+    "poster": "kenalan_gigi.png",
+    "caption_vtt": "kenalan_gigi.vtt",
+    "tantangan": [
+      {
+        "id": "v1_q1",
+        "pertanyaan": "Apa nama lapisan terluar gigi yang paling keras dan melindungi gigi kita?",
+        "opsi": ["Lapisan Email Gigi", "Lapisan Permen", "Lapisan Karet"],
+        "benar": 0,
+        "alasan": "Email adalah lapisan terluar gigi yang sangat keras untuk melindungi bagian dalam gigi."
+      },
+      {
+        "id": "v1_q2",
+        "pertanyaan": "Mengapa gigi susu yang kita miliki saat ini harus dijaga dan dirawat dengan baik?",
+        "opsi": ["Sebagai penunjuk jalan dan penjaga ruang untuk gigi tetap yang akan tumbuh nanti", "Supaya bisa dilepas pasang", "Gigi susu tidak perlu dirawat"],
+        "benar": 0,
+        "alasan": "Gigi susu menjaga ruang rahang agar gigi dewasa nantinya dapat tumbuh dengan rapi."
+      }
+    ]
+  },
+  {
+    "id": "video-2",
+    "urutan": 2,
+    "judul": "Makanan Sahabat & Makanan Perusak Gigi",
+    "deskripsi": "Memilih makanan bergizi yang menyehatkan gigi dan mengenali camilan manis yang disukai kuman.",
+    "tp": "TP3",
+    "durasi_detik": 150,
+    "file": "makanan_gigi.mp4",
+    "poster": "makanan_gigi.png",
+    "caption_vtt": "makanan_gigi.vtt",
+    "tantangan": [
+      {
+        "id": "v2_q1",
+        "pertanyaan": "Mengapa makanan manis dan lengket seperti permen gulali berbahaya bagi gigi?",
+        "opsi": ["Gula yang menempel diolah kuman menjadi zat asam perusak email gigi", "Membuat gigi kita berwarna biru seketika", "Membuat gigi cepat kenyang"],
+        "benar": 0,
+        "alasan": "Bakteri mulut mengonsumsi sisa gula dan mengeluarkan zat asam yang mengikis email gigi."
+      },
+      {
+        "id": "v2_q2",
+        "pertanyaan": "Camilan apa yang sangat baik untuk membersihkan gigi secara alami saat dikunyah?",
+        "opsi": ["Buah apel segar atau sayuran renyah", "Cokelat karamel manis", "Keripik asin yang lengket"],
+        "benar": 0,
+        "alasan": "Serat buah dan sayuran merangsang air liur yang membersihkan rongga mulut secara alami."
+      }
+    ]
+  },
+  {
+    "id": "video-3",
+    "urutan": 3,
+    "judul": "Petualangan 2 Menit Menyikat Gigi",
+    "deskripsi": "Teknik menyikat gigi yang tepat dengan gerakan melingkar lembut dan pasta gigi berfluorida.",
+    "tp": "TP2",
+    "durasi_detik": 120,
+    "file": "cara_sikat.mp4",
+    "poster": "cara_sikat.png",
+    "caption_vtt": "cara_sikat.vtt",
+    "tantangan": [
+      {
+        "id": "v3_q1",
+        "pertanyaan": "Berapa lama waktu menyikat gigi yang dianjurkan oleh dokter gigi?",
+        "opsi": ["2 Menit (120 detik)", "10 Detik", "1 Jam"],
+        "benar": 0,
+        "alasan": "Waktu 2 menit cukup untuk membersihkan seluruh zona gigi depan, belakang, dan permukaan kunyah."
+      },
+      {
+        "id": "v3_q2",
+        "pertanyaan": "Berapa takaran pasta gigi berfluorida yang tepat untuk anak SD?",
+        "opsi": ["Sebesar biji kacang polong", "Sepenuh satu mangkuk besar", "Tidak perlu pasta gigi sama sekali"],
+        "benar": 0,
+        "alasan": "Sebesar biji kacang polong sudah cukup memberikan perlindungan fluorida yang optimal dan aman."
+      }
+    ]
+  },
+  {
+    "id": "video-4",
+    "urutan": 4,
+    "judul": "Gigi Berlubang & Sahabat Dokter Gigi",
+    "deskripsi": "Mengenal proses terbentuknya lubang gigi dan asyiknya berkunjung ke dokter gigi secara rutin.",
+    "tp": "TP4, TP5",
+    "durasi_detik": 140,
+    "file": "dokter_gigi.mp4",
+    "poster": "dokter_gigi.png",
+    "caption_vtt": "dokter_gigi.vtt",
+    "tantangan": [
+      {
+        "id": "v4_q1",
+        "pertanyaan": "Berapa kali kita sebaiknya memeriksakan gigi ke dokter gigi secara rutin?",
+        "opsi": ["Setiap 6 bulan sekali (2 kali setahun)", "Hanya jika gigi sudah sakit parah", "10 tahun sekali"],
+        "benar": 0,
+        "alasan": "Pemeriksaan 6 bulan sekali menemukan masalah sebelum terjadi rasa sakit pada gigi."
+      },
+      {
+        "id": "v4_q2",
+        "pertanyaan": "Apa yang dilakukan dokter gigi saat kita melakukan pemeriksaan rutin?",
+        "opsi": ["Mengecek kebersihan gigi, mengajari cara sikat yang benar, dan merawat gigi yang butuh bantuan", "Memarahi kita jika ada gigi berlubang", "Memberikan permen manis"],
+        "benar": 0,
+        "alasan": "Dokter gigi adalah sahabat yang ramah dan siap membantu merawat senyum sehat kita."
+      }
+    ]
+  }
+]

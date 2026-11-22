@@ -1,0 +1,50 @@
+@import '@fontsource/baloo-2/500.css';
+@import '@fontsource/baloo-2/600.css';
+@import '@fontsource/baloo-2/700.css';
+@import '@fontsource/baloo-2/800.css';
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../js/**/*.js';
+
+:root {
+  --color-sky: #4AA8D8;
+  --color-sky-dark: #2F7FAE;
+  --color-sky-light: #E8F6FB;
+  --color-tooth: #FFFDF7;
+  --color-cheek: #FFB3C1;
+  --color-gold: #FFD65A;
+  --color-gold-dark: #D9A400;
+  --color-cape: #E85D5D;
+  --color-cape-dark: #B93A3A;
+  --color-mirror: #D9E2EA;
+  --color-mirror-dark: #7F97AA;
+  --color-navy: #25435C;
+  --color-title: #1F6E9C;
+}
+
+@theme {
+  --font-sans: 'Baloo 2', cursive, ui-sans-serif, system-ui, sans-serif;
+  --color-dento-sky: var(--color-sky);
+  --color-dento-sky-dark: var(--color-sky-dark);
+  --color-dento-sky-light: var(--color-sky-light);
+  --color-dento-tooth: var(--color-tooth);
+  --color-dento-cheek: var(--color-cheek);
+  --color-dento-gold: var(--color-gold);
+  --color-dento-gold-dark: var(--color-gold-dark);
+  --color-dento-cape: var(--color-cape);
+  --color-dento-cape-dark: var(--color-cape-dark);
+  --color-dento-navy: var(--color-navy);
+  --color-dento-title: var(--color-title);
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-navy);
+  background-color: var(--color-sky-light);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}

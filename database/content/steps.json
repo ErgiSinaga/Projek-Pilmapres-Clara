@@ -1,0 +1,8 @@
+[
+  { "id": 1, "urutan": 1, "judul": "Oles Pasta Gigi", "deskripsi": "Oleskan pasta gigi berfluorida sebesar biji kacang polong di bulu sikat." },
+  { "id": 2, "urutan": 2, "judul": "Sikat Gigi Depan", "deskripsi": "Sikat permukaan gigi depan atas dan bawah dengan gerakan memutar lembut." },
+  { "id": 3, "urutan": 3, "judul": "Sikat Gigi Geraham", "deskripsi": "Sikat permukaan kunyah gigi geraham belakang dengan gerakan maju mundur." },
+  { "id": 4, "urutan": 4, "judul": "Sikat Bagian Dalam", "deskripsi": "Sikat permukaan gigi bagian dalam yang menghadap ke lidah dan langit-langit." },
+  { "id": 5, "urutan": 5, "judul": "Sikat Lidah", "deskripsi": "Sikat lidahmu perlahan untuk membersihkan kuman dan menyegarkan nafas." },
+  { "id": 6, "urutan": 6, "judul": "Kumur Air Bersih", "deskripsi": "Buang sisa busa dan berkumur secukupnya dengan air bersih." }
+]

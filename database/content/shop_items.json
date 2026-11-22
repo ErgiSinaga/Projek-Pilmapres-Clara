@@ -1,0 +1,58 @@
+[
+  {
+    "kode": "topi_dokter",
+    "nama": "Topi Dokter",
+    "slot": "topi",
+    "harga": 40,
+    "svg_key": "dokter"
+  },
+  {
+    "kode": "topi_merah",
+    "nama": "Topi Merah",
+    "slot": "topi",
+    "harga": 30,
+    "svg_key": "merah"
+  },
+  {
+    "kode": "kacamata_bulat",
+    "nama": "Kacamata Bulat",
+    "slot": "kacamata",
+    "harga": 50,
+    "svg_key": "bulat"
+  },
+  {
+    "kode": "kacamata_bintang",
+    "nama": "Kacamata Bintang",
+    "slot": "kacamata",
+    "harga": 60,
+    "svg_key": "bintang"
+  },
+  {
+    "kode": "jubah_biru",
+    "nama": "Jubah Biru",
+    "slot": "jubah",
+    "harga": 45,
+    "svg_key": "biru"
+  },
+  {
+    "kode": "jubah_hijau",
+    "nama": "Jubah Hijau",
+    "slot": "jubah",
+    "harga": 45,
+    "svg_key": "hijau"
+  },
+  {
+    "kode": "latar_taman",
+    "nama": "Latar Taman",
+    "slot": "latar",
+    "harga": 80,
+    "svg_key": "taman"
+  },
+  {
+    "kode": "latar_langit",
+    "nama": "Latar Langit",
+    "slot": "latar",
+    "harga": 100,
+    "svg_key": "langit"
+  }
+]
