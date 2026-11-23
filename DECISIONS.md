@@ -93,3 +93,18 @@ Dokumen ini mencatat seluruh keputusan teknis dan arsitektural yang diambil dala
   - Teks menggunakan warna *Deep Navy* (`#25435C`) di atas latar terang (`#FFFFFF` / `#E8F6FB`) memenuhi pedoman WCAG AA.
 - **Dukungan Keyboard Lengkap**:
   - Angka 1..6 untuk zona sikat gigi dan nomor urutan sikat, angka 1..3 untuk pilihan kuis dan keranjang makanan.
+
+---
+
+## 10. Jurnal Gigi (Habit Tracker) & Penempatan Video (Addendum 01)
+- **Hadiah untuk Melapor (Fair Reporting Principle)**:
+  - Hadiah (+8 Koin, +10 XP, +5 Kebahagiaan) bernilai sama persis apa pun isi jawaban murid (baik "sudah" maupun "belum"), mencegah murid berbohong demi hadiah.
+- **Isolasi Status Hewan**:
+  - Status `kebersihan` Dento tidak pernah bertambah atau berkurang karena jawaban jurnal kebiasaan. Kebersihan hanya dipengaruhi aktivitas interaktif di dalam game.
+- **Tanggapan Maskot Selalu Netral & Suportif**:
+  - Untuk jawaban "belum", Dento tidak pernah sedih, bingung, atau menyalahkan; melainkan berterima kasih atas kejujuran murid dan menyemangati.
+- **Penempatan Sesi Ideal**:
+  - Pemicu login pertama: Dialog sapaan santai *"Yuk cerita tentang gigimu hari ini!"* dengan pilihan *"Ayo Cerita"* atau *"Nanti Dulu"*.
+  - Akses mandiri: Tombol ke-7 **Jurnal** di dok navigasi bawah Rumah Dento dengan badge indikator titik merah jika belum melapor.
+- **Struktur Video Kontekstual**:
+  - Pemisahan 4 video inti (V1-V4), 4 video mikro (M1-M4), 1 video pembuka (V0), dan 1 video penutup (VP). Pencatatan parameter `sumber` ke tabel `video_progress` untuk analisis efektivitas riset.

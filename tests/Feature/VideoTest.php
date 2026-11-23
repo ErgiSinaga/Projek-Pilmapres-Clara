@@ -66,10 +66,11 @@ class VideoTest extends TestCase
             ]);
 
         $videos = $response->json('videos');
-        $this->assertCount(4, $videos);
+        $coreVideos = collect($videos)->where('tipe', 'inti')->values();
+        $this->assertCount(4, $coreVideos);
         // Video 1 unlocked, Video 2 locked
-        $this->assertTrue($videos[0]['unlocked']);
-        $this->assertFalse($videos[1]['unlocked']);
+        $this->assertTrue($coreVideos[0]['unlocked']);
+        $this->assertFalse($coreVideos[1]['unlocked']);
     }
 
     public function test_can_record_video_progress(): void

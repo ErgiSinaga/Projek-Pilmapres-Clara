@@ -218,6 +218,18 @@ export async function createHomeScreen(container, router) {
           <span style="font-size:14px; font-weight:800; color:var(--color-navy);">Pesan</span>
         </button>
 
+        <!-- 7. Jurnal Gigi (Habit Tracker) -->
+        <button id="dock-btn-jurnal" style="border:none; background:transparent; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; position:relative;">
+          <div style="width:60px; height:60px; border-radius:50%; background:#CCFBF1; border:3px solid #0D9488; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px rgba(13,148,136,0.25); position:relative;">
+            <!-- SVG Buku Jurnal & Senyum Gigi -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 10h6"/><path d="M12 7v6"/></svg>
+            ${(!homeData.habit || !homeData.habit.today_done) ? `
+              <div style="position:absolute; top:-2px; right:-2px; width:16px; height:16px; background:#EF4444; border:2px solid #fff; border-radius:50%; box-shadow:0 0 6px rgba(239,68,68,0.8);"></div>
+            ` : ''}
+          </div>
+          <span style="font-size:14px; font-weight:800; color:var(--color-navy);">Jurnal</span>
+        </button>
+
       </nav>
 
       <!-- Modal Dialog Pilihan Mini Game (Urutan Sikat / Sikat Bersih & Memory / Kuis) -->
@@ -228,6 +240,29 @@ export async function createHomeScreen(container, router) {
           <button id="modal-close" style="padding:10px 24px; background:#F1F5F9; border:none; border-radius:10px; font-size:15px; font-weight:700; color:#475569; cursor:pointer;">Tutup</button>
         </div>
       </div>
+
+      <!-- Modal Sapaan Check-in Harian Jurnal Gigi (Pemicu Login Pertama) -->
+      ${homeData.habit && homeData.habit.prompt_today ? `
+        <div id="habit-daily-prompt" style="display:flex; position:fixed; inset:0; z-index:120; background:rgba(0,0,0,0.55); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:20px;">
+          <div style="background:#fff; padding:32px 28px; border-radius:28px; max-width:440px; width:100%; text-align:center; box-shadow:0 16px 40px rgba(0,0,0,0.25); border:3px solid #0D9488;">
+            <div style="width:72px; height:72px; margin:0 auto 16px auto; background:#CCFBF1; border-radius:50%; display:flex; align-items:center; justify-content:center; border:3px solid #0D9488;">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 10h6"/><path d="M12 7v6"/></svg>
+            </div>
+            <h2 style="color:var(--color-navy); font-size:24px; font-weight:800; margin:0 0 10px 0;">Yuk Cerita Hari Ini!</h2>
+            <p style="color:#475569; font-size:15px; line-height:1.5; margin:0 0 24px 0;">
+              Yuk cerita tentang kebiasaan gigimu hari ini bersama Dento. Ceritakan dengan jujur ya, tidak ada jawaban yang salah!
+            </p>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <button id="btn-prompt-cerita" style="min-height:52px; padding:12px 24px; background:linear-gradient(135deg, #0D9488, #059669); color:#fff; border:none; border-radius:16px; font-size:17px; font-weight:800; cursor:pointer; box-shadow:0 6px 16px rgba(13,148,136,0.35);">
+                ✨ Ayo Cerita Sekarang!
+              </button>
+              <button id="btn-prompt-nanti" style="min-height:46px; padding:10px 24px; background:#F1F5F9; color:#64748B; border:none; border-radius:14px; font-size:15px; font-weight:700; cursor:pointer;">
+                Nanti Dulu
+              </button>
+            </div>
+          </div>
+        </div>
+      ` : ''}
     </div>
   `;
 
@@ -316,6 +351,27 @@ export async function createHomeScreen(container, router) {
       });
     });
   }
+
+  // Event Jurnal Gigi Dock
+  container.querySelector('#dock-btn-jurnal')?.addEventListener('click', () => {
+    if (homeData.habit && homeData.habit.today_done) {
+      router.navigate('jurnal-ringkasan');
+    } else {
+      router.navigate('jurnal');
+    }
+  });
+
+  // Event Prompt Harian Jurnal
+  container.querySelector('#btn-prompt-cerita')?.addEventListener('click', () => {
+    router.navigate('jurnal');
+  });
+
+  container.querySelector('#btn-prompt-nanti')?.addEventListener('click', async () => {
+    try {
+      await api.post('/api/jurnal/lewati');
+    } catch (e) {}
+    container.querySelector('#habit-daily-prompt')?.remove();
+  });
 
   return {
     destroy() {

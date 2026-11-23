@@ -221,8 +221,8 @@ class AdminResultsAndExportTest extends TestCase
         $response->assertStatus(200);
         $content = $response->streamedContent();
 
-        $this->assertStringContainsString('kode_peserta,aktivitas_kode', $content);
-        $this->assertStringContainsString('S1-01,pilah-makanan', $content);
+        $this->assertStringContainsString('kode_peserta,tipe_aktivitas,aktivitas_kode', $content);
+        $this->assertStringContainsString('S1-01,game,pilah-makanan', $content);
     }
 
     public function test_export_pilihan_makanan(): void

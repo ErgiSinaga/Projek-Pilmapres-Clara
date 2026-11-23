@@ -52,6 +52,7 @@
                 <a href="{{ url('/admin') }}">Dashboard</a>
                 <a href="{{ url('/admin/students') }}">Murid</a>
                 <a href="{{ url('/admin/results') }}">Hasil</a>
+                <a href="{{ url('/admin/habits') }}">Kebiasaan</a>
                 <form action="{{ url('/admin/logout') }}" method="POST" style="display:inline;">
                     @csrf
                     <button type="submit" style="background:none; border:none; color:#ef4444; font-weight:600; cursor:pointer;">Keluar</button>

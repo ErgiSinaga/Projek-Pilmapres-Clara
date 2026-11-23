@@ -54,9 +54,17 @@ const routes = {
     const { createKuisKilatGame } = await import('./games/kuis-kilat.js');
     return createKuisKilatGame(container, routerInstance);
   },
-  videos: async (container) => {
+  videos: async (container, params) => {
     const { createVideosScreen } = await import('./screens/videos.js');
-    return createVideosScreen(container, routerInstance);
+    return createVideosScreen(container, routerInstance, params);
+  },
+  jurnal: async (container) => {
+    const { createJurnalScreen } = await import('./screens/jurnal.js');
+    return createJurnalScreen(container, routerInstance);
+  },
+  'jurnal-ringkasan': async (container) => {
+    const { createJurnalRingkasanScreen } = await import('./screens/jurnal-ringkasan.js');
+    return createJurnalRingkasanScreen(container, routerInstance);
   },
   certificate: async (container) => {
     const { createCertificateScreen } = await import('./screens/certificate.js');

@@ -14,6 +14,24 @@ return [
         'min_active_days' => 3,
         'min_videos' => 4,
         'min_level' => 3,
+        'min_checkins' => 3,          // syarat check-in jurnal selesai
+    ],
+    'habit' => [
+        'enabled' => true,
+        'school_days_only' => true,      // streak hanya hitung Sen-Jum
+        'streak_grace_days' => 1,        // toleransi 1 hari bolong
+        'prompt_on_first_login_of_day' => true,
+        'allow_skip' => true,            // murid bisa klik "Nanti dulu"
+        'max_recommendations_per_day' => 1,
+        'reward' => [
+            'coins' => 8,
+            'xp' => 10,
+            'happiness' => 5,
+        ],
+        'micro_video_reward' => [
+            'coins' => 5,
+            'xp' => 5,
+        ],
     ],
     'coin_cap_per_activity_per_day' => 30,
     'decay' => [

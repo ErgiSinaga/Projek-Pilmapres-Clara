@@ -306,13 +306,15 @@ class TestEngineController extends Controller
             return false;
         }
 
-        // Mode auto: periksa syarat hari aktif, video selesai, dan level
+        // Mode auto: periksa syarat hari aktif, video selesai, level, dan check-in jurnal
         $activeDays = $student->active_days_count;
         $videosCount = $student->videoProgress()->whereNotNull('selesai_at')->count();
         $petLevel = $student->petState->level ?? 1;
+        $checkinsDone = $student->completed_checkins_count;
 
         return $activeDays >= ($config['min_active_days'] ?? 3)
             && $videosCount >= ($config['min_videos'] ?? 4)
-            && $petLevel >= ($config['min_level'] ?? 3);
+            && $petLevel >= ($config['min_level'] ?? 3)
+            && $checkinsDone >= ($config['min_checkins'] ?? 3);
     }
 }

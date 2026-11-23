@@ -184,6 +184,25 @@ class StudentManagementController extends Controller
         return back()->with('success', "Post-test untuk peserta {$student->kode} berhasil dibuka secara manual.");
     }
 
+    public function reopenCheckin(Student $student): RedirectResponse
+    {
+        Gate::authorize('update', $student);
+
+        $today = Carbon::today('Asia/Jakarta')->toDateString();
+        $checkin = $student->habitCheckins()->where('tanggal', $today)->first();
+
+        if (! $checkin) {
+            return back()->with('error', "Peserta {$student->kode} belum mengisi jurnal hari ini.");
+        }
+
+        $checkin->update([
+            'status' => 'draft',
+            'finished_at' => null,
+        ]);
+
+        return back()->with('success', "Jurnal hari ini untuk peserta {$student->kode} berhasil dibuka kembali.");
+    }
+
     public function show(Student $student): View
     {
         Gate::authorize('view', $student);

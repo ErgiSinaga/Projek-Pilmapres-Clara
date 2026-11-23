@@ -122,7 +122,14 @@ export async function createPilahMakananGame(container, router) {
         retryItems.push(currentItem);
 
         const bubble = wrapper.querySelector('#feedback-bubble');
-        bubble.textContent = `💡 Coba perhatikan lagi: ${currentItem.alasan}`;
+        if (retryItems.length >= 3) {
+          bubble.innerHTML = `💡 Coba perhatikan lagi: ${currentItem.alasan}<br><button id="btn-watch-hint-video" style="margin-top:8px; padding:6px 14px; background:#0D9488; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:800; cursor:pointer;">🎬 Tonton Video Tips (M3: Makanan Manis)</button>`;
+          bubble.querySelector('#btn-watch-hint-video')?.addEventListener('click', () => {
+            router.navigate('videos?v=M3-manis&src=petunjuk_game');
+          });
+        } else {
+          bubble.textContent = `💡 Coba perhatikan lagi: ${currentItem.alasan}`;
+        }
         bubble.style.display = 'block';
       }
 

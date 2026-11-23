@@ -179,10 +179,23 @@ export async function createTestScreen(container, router, params) {
           <span style="font-size: 48px; color: #FFD65A;">⭐</span>
         </div>
 
-        <button id="btn-next-action"
-          style="min-height: 56px; padding: 14px 36px; background: #059669; color: #ffffff; border: none; border-radius: 14px; font-size: 20px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);">
-          ${jenis === 'pre' ? 'Masuk ke Rumah Dento &rarr;' : 'Isi Kuesioner Kepuasan &rarr;'}
-        </button>
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 380px; margin: 0 auto;">
+          ${jenis === 'pre' ? `
+            <button id="btn-watch-intro"
+              style="min-height: 54px; padding: 14px 28px; background: #0D9488; color: #ffffff; border: none; border-radius: 14px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);">
+              🎬 Tonton Video Sambutan Dento &rarr;
+            </button>
+            <button id="btn-next-action"
+              style="min-height: 48px; padding: 12px 24px; background: #F1F5F9; color: #475569; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer;">
+              Langsung Masuk Rumah Dento &rarr;
+            </button>
+          ` : `
+            <button id="btn-next-action"
+              style="min-height: 56px; padding: 14px 36px; background: #059669; color: #ffffff; border: none; border-radius: 14px; font-size: 20px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);">
+              Isi Kuesioner Kepuasan &rarr;
+            </button>
+          `}
+        </div>
       </div>
     `;
 
@@ -194,7 +207,11 @@ export async function createTestScreen(container, router, params) {
     }, { size: 180, track: true });
     mascotInstance.react('pop');
 
-    content.querySelector('#btn-next-action').addEventListener('click', () => {
+    content.querySelector('#btn-watch-intro')?.addEventListener('click', () => {
+      router.navigate('videos?v=V0-pembuka&src=pembuka');
+    });
+
+    content.querySelector('#btn-next-action')?.addEventListener('click', () => {
       if (jenis === 'pre') {
         router.navigate('home');
       } else {

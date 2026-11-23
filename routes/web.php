@@ -3,11 +3,13 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExportController;
+use App\Http\Controllers\Admin\HabitManagementController;
 use App\Http\Controllers\Admin\ResultController;
 use App\Http\Controllers\Admin\SchoolClassController;
 use App\Http\Controllers\Admin\SchoolController;
 use App\Http\Controllers\Admin\StudentManagementController;
 use App\Http\Controllers\Api\GameController;
+use App\Http\Controllers\Api\HabitController;
 use App\Http\Controllers\Api\PetController;
 use App\Http\Controllers\Api\StudentAuthController;
 use App\Http\Controllers\Api\TestEngineController;
@@ -63,6 +65,15 @@ Route::prefix('api')->group(function () {
     // Kuesioner Kepuasan Murid
     Route::get('/survey', [TestEngineController::class, 'getSurvey'])->name('api.survey.get');
     Route::post('/survey', [TestEngineController::class, 'submitSurvey'])->name('api.survey.post');
+
+    // Jurnal Gigi (Habit Tracker)
+    Route::get('/jurnal/hari-ini', [HabitController::class, 'hariIni'])->name('api.jurnal.hari-ini');
+    Route::post('/jurnal/jawab', [HabitController::class, 'jawab'])->name('api.jurnal.jawab');
+    Route::post('/jurnal/lewati', [HabitController::class, 'lewati'])->name('api.jurnal.lewati');
+    Route::post('/jurnal/selesai', [HabitController::class, 'selesai'])->name('api.jurnal.selesai');
+    Route::post('/jurnal/rekomendasi/{id}/terima', [HabitController::class, 'terimaRekomendasi'])->name('api.jurnal.rekomendasi.terima');
+    Route::post('/jurnal/rekomendasi/{id}/tolak', [HabitController::class, 'tolakRekomendasi'])->name('api.jurnal.rekomendasi.tolak');
+    Route::get('/jurnal/ringkasan', [HabitController::class, 'ringkasan'])->name('api.jurnal.ringkasan');
 });
 
 // Panel Admin (Peneliti & Guru)
@@ -89,9 +100,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/students/{student}/unlock', [StudentManagementController::class, 'unlock'])->name('students.unlock');
         Route::post('/students/{student}/consent', [StudentManagementController::class, 'toggleConsent'])->name('students.consent');
         Route::post('/students/{student}/unlock-post-test', [StudentManagementController::class, 'unlockPostTest'])->name('students.unlock-post-test');
+        Route::post('/students/{student}/reopen-checkin', [StudentManagementController::class, 'reopenCheckin'])->name('students.reopen-checkin');
 
         // Hasil Pre vs Post
         Route::get('/results', [ResultController::class, 'index'])->name('results.index');
+
+        // Laporan & Analisis Kebiasaan Gigi
+        Route::get('/habits', [HabitManagementController::class, 'index'])->name('habits.index');
 
         // Ekspor CSV Penelitian (UTF-8 BOM)
         Route::prefix('export')->name('export.')->group(function () {
@@ -101,6 +116,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/pilihan-makanan', [ExportController::class, 'pilihanMakanan'])->name('pilihan-makanan');
             Route::get('/survei', [ExportController::class, 'survei'])->name('survei');
             Route::get('/login-hari-aktif', [ExportController::class, 'loginHariAktif'])->name('login-hari-aktif');
+            Route::get('/kebiasaan-harian', [ExportController::class, 'kebiasaanHarian'])->name('kebiasaan-harian');
+            Route::get('/kebiasaan-ringkas', [ExportController::class, 'kebiasaanRingkas'])->name('kebiasaan-ringkas');
+            Route::get('/rekomendasi-kebiasaan', [ExportController::class, 'rekomendasiKebiasaan'])->name('rekomendasi-kebiasaan');
         });
     });
 });

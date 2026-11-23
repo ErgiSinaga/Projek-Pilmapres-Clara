@@ -162,8 +162,11 @@ export async function createUrutanSikatGame(container, router) {
             await renderFinished(8); // skor parsial
           }, 2500);
         } else {
-          alertBox.textContent = `Masih ada langkah yang terbalik. Coba lagi ya! (Percobaan ${attempts} dari 3)`;
+          alertBox.innerHTML = `Masih ada langkah yang terbalik. Coba lagi ya! (Percobaan ${attempts} dari 3)${attempts >= 2 ? '<br><button id="btn-watch-brush-video" style="margin-top:8px; padding:6px 14px; background:#0D9488; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:800; cursor:pointer;">🎬 Tonton Video Cara Sikat (M1)</button>' : ''}`;
           alertBox.style.display = 'block';
+          alertBox.querySelector('#btn-watch-brush-video')?.addEventListener('click', () => {
+            router.navigate('videos?v=M1-sikat-malam&src=petunjuk_game');
+          });
         }
       }
     });

@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\GameEvent;
 use App\Models\GameSession;
+use App\Models\HabitCheckin;
+use App\Models\HabitRecommendation;
 use App\Models\LoginLog;
 use App\Models\Student;
 use App\Models\TestAnswer;
+use App\Models\VideoProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -142,9 +145,10 @@ class ExportController extends Controller
         $students = $this->getScopedStudents($request)->keyBy('id');
         $studentIds = $students->keys()->all();
 
-        $header = ['kode_peserta', 'aktivitas_kode', 'waktu_mulai', 'waktu_selesai', 'skor', 'durasi_detik'];
+        $header = ['kode_peserta', 'tipe_aktivitas', 'aktivitas_kode', 'waktu_mulai', 'waktu_selesai', 'skor', 'durasi_detik', 'sumber'];
 
         $sessions = GameSession::whereIn('student_id', $studentIds)->orderBy('started_at')->get();
+        $videoProgresses = VideoProgress::whereIn('student_id', $studentIds)->orderBy('created_at')->get();
 
         $rows = [];
         foreach ($sessions as $ses) {
@@ -160,11 +164,31 @@ class ExportController extends Controller
 
             $rows[] = [
                 $student->kode,
+                'game',
                 $ses->game_kode,
                 $ses->started_at?->format('Y-m-d H:i:s') ?? '',
                 $ses->finished_at?->format('Y-m-d H:i:s') ?? '',
                 $ses->skor,
                 $duration,
+                'main',
+            ];
+        }
+
+        foreach ($videoProgresses as $vp) {
+            $student = $students->get($vp->student_id);
+            if (! $student) {
+                continue;
+            }
+
+            $rows[] = [
+                $student->kode,
+                'video',
+                $vp->video_id,
+                $vp->created_at?->format('Y-m-d H:i:s') ?? '',
+                $vp->selesai_at?->format('Y-m-d H:i:s') ?? '',
+                $vp->skor_tantangan ?? '',
+                $vp->detik_ditonton,
+                $vp->sumber ?? 'kelas',
             ];
         }
 
@@ -303,5 +327,145 @@ class ExportController extends Controller
         }
 
         return $this->streamCsv('login_hari_aktif.csv', $header, $rows);
+    }
+
+    /**
+     * 7. kebiasaan_harian.csv: kode_peserta, sekolah, kelas, tanggal_lapor, item_kode, nilai, nilai_num, acuan, waktu_respons_ms, waktu_lapor
+     */
+    public function kebiasaanHarian(Request $request): StreamedResponse
+    {
+        $students = $this->getScopedStudents($request)->keyBy('id');
+        $studentIds = $students->keys()->all();
+
+        $header = ['kode_peserta', 'sekolah', 'kelas', 'tanggal_lapor', 'item_kode', 'nilai', 'nilai_num', 'acuan', 'waktu_respons_ms', 'waktu_lapor'];
+
+        $habitsFile = database_path('content/habits.json');
+        $habits = File::exists($habitsFile) ? collect(json_decode(File::get($habitsFile), true)['items'] ?? [])->keyBy('kode') : collect();
+
+        $checkins = HabitCheckin::with('answers')
+            ->whereIn('student_id', $studentIds)
+            ->where('status', 'selesai')
+            ->orderBy('tanggal')
+            ->get();
+
+        $rows = [];
+        foreach ($checkins as $ch) {
+            $student = $students->get($ch->student_id);
+            if (! $student) {
+                continue;
+            }
+
+            foreach ($ch->answers as $ans) {
+                $itemMeta = $habits->get($ans->item_kode);
+                $acuan = $itemMeta['acuan'] ?? 'hari_ini';
+
+                $rows[] = [
+                    $student->kode,
+                    $student->school?->nama ?? '',
+                    $student->schoolClass?->nama ?? '',
+                    $ch->tanggal?->format('Y-m-d') ?? '',
+                    $ans->item_kode,
+                    $ans->nilai,
+                    $ans->nilai_num !== null ? $ans->nilai_num : '',
+                    $acuan,
+                    $ans->ms ?? '',
+                    $ans->answered_at?->format('Y-m-d H:i:s') ?? '',
+                ];
+            }
+        }
+
+        return $this->streamCsv('kebiasaan_harian.csv', $header, $rows);
+    }
+
+    /**
+     * 8. kebiasaan_ringkas.csv: kode_peserta, sekolah, kelas, total_hari_lapor, sikat_pagi_proporsi, sikat_malam_proporsi, manis_mean, kumur_proporsi, air_putih_proporsi, streak_tertinggi
+     */
+    public function kebiasaanRingkas(Request $request): StreamedResponse
+    {
+        $students = $this->getScopedStudents($request);
+        $header = ['kode_peserta', 'sekolah', 'kelas', 'total_hari_lapor', 'sikat_pagi_proporsi', 'sikat_malam_proporsi', 'manis_mean', 'kumur_proporsi', 'air_putih_proporsi', 'streak_tertinggi'];
+
+        $rows = [];
+        foreach ($students as $student) {
+            $checkins = $student->habitCheckins()->with('answers')->where('status', 'selesai')->get();
+            $totalDays = $checkins->count();
+
+            if ($totalDays === 0) {
+                $rows[] = [
+                    $student->kode,
+                    $student->school?->nama ?? '',
+                    $student->schoolClass?->nama ?? '',
+                    0, '', '', '', '', '', 0,
+                ];
+
+                continue;
+            }
+
+            $allAnswers = $checkins->flatMap->answers;
+            $sp = $allAnswers->where('item_kode', 'sikat_pagi');
+            $sm = $allAnswers->where('item_kode', 'sikat_malam');
+            $mn = $allAnswers->where('item_kode', 'manis');
+            $km = $allAnswers->where('item_kode', 'kumur')->where('nilai', '!=', 'tidak_berlaku');
+            $ap = $allAnswers->where('item_kode', 'air_putih');
+
+            $spProp = $sp->count() > 0 ? round($sp->where('nilai', 'sudah')->count() / $sp->count(), 3) : '';
+            $smProp = $sm->count() > 0 ? round($sm->where('nilai', 'sudah')->count() / $sm->count(), 3) : '';
+            $mnMean = $mn->count() > 0 ? round($mn->avg('nilai_num'), 2) : '';
+            $kmProp = $km->count() > 0 ? round($km->where('nilai', 'ya')->count() / $km->count(), 3) : '';
+            $apProp = $ap->count() > 0 ? round($ap->where('nilai', 'sudah')->count() / $ap->count(), 3) : '';
+            $streak = $student->school_days_streak;
+
+            $rows[] = [
+                $student->kode,
+                $student->school?->nama ?? '',
+                $student->schoolClass?->nama ?? '',
+                $totalDays,
+                $spProp,
+                $smProp,
+                $mnMean,
+                $kmProp,
+                $apProp,
+                $streak,
+            ];
+        }
+
+        return $this->streamCsv('kebiasaan_ringkas.csv', $header, $rows);
+    }
+
+    /**
+     * 9. rekomendasi_kebiasaan.csv: kode_peserta, tanggal_checkin, alasan_item, tipe_rekomendasi, target_kode, ditampilkan_at, diterima_at, dituntaskan_at
+     */
+    public function rekomendasiKebiasaan(Request $request): StreamedResponse
+    {
+        $students = $this->getScopedStudents($request)->keyBy('id');
+        $studentIds = $students->keys()->all();
+
+        $header = ['kode_peserta', 'tanggal_checkin', 'alasan_item', 'tipe_rekomendasi', 'target_kode', 'ditampilkan_at', 'diterima_at', 'dituntaskan_at'];
+
+        $recs = HabitRecommendation::with('checkin')
+            ->whereIn('student_id', $studentIds)
+            ->orderBy('shown_at')
+            ->get();
+
+        $rows = [];
+        foreach ($recs as $rec) {
+            $student = $students->get($rec->student_id);
+            if (! $student) {
+                continue;
+            }
+
+            $rows[] = [
+                $student->kode,
+                $rec->checkin?->tanggal?->format('Y-m-d') ?? '',
+                $rec->alasan_item,
+                $rec->tipe,
+                $rec->target_kode,
+                $rec->shown_at?->format('Y-m-d H:i:s') ?? '',
+                $rec->accepted_at?->format('Y-m-d H:i:s') ?? '',
+                $rec->completed_at?->format('Y-m-d H:i:s') ?? '',
+            ];
+        }
+
+        return $this->streamCsv('rekomendasi_kebiasaan.csv', $header, $rows);
     }
 }

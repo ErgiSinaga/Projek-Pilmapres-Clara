@@ -1,0 +1,75 @@
+{
+  "status": "DRAFT",
+  "rules": [
+    {
+      "prioritas": 1,
+      "jika": {
+        "item": "sikat_malam",
+        "nilai": "belum"
+      },
+      "rekomendasi": {
+        "tipe": "video",
+        "target": "M1-sikat-malam",
+        "judul": "Kenapa Harus Sikat Gigi Sebelum Tidur?",
+        "deskripsi": "Yuk tonton video singkat 30 detik tentang perlindungan gigi di malam hari!"
+      },
+      "tip": "tip_sikat_malam"
+    },
+    {
+      "prioritas": 2,
+      "jika": {
+        "item": "sikat_pagi",
+        "nilai": "belum"
+      },
+      "rekomendasi": {
+        "tipe": "video",
+        "target": "M2-sikat-pagi",
+        "judul": "Segar Seharian: Sikat Gigi Setelah Sarapan",
+        "deskripsi": "Cari tahu serunya sikat gigi pagi setelah sarapan yuk!"
+      },
+      "tip": "tip_sikat_pagi"
+    },
+    {
+      "prioritas": 3,
+      "jika": {
+        "item": "manis",
+        "nilai_in": ["2", "3_plus"]
+      },
+      "rekomendasi": {
+        "tipe": "game",
+        "target": "pilah-makanan",
+        "judul": "Game Pilah Makanan Sehat",
+        "deskripsi": "Ayo main tebak makanan yang ramah untuk gigimu!"
+      },
+      "tip": "tip_manis"
+    },
+    {
+      "prioritas": 4,
+      "jika": {
+        "item": "kumur",
+        "nilai": "belum"
+      },
+      "rekomendasi": {
+        "tipe": "video",
+        "target": "M4-kumur",
+        "judul": "Kumur Air Putih: Jurus Kilat Lawan Gula",
+        "deskripsi": "Lihat trik cepat berkumur setelah menikmati makanan manis!"
+      },
+      "tip": "tip_kumur"
+    },
+    {
+      "prioritas": 5,
+      "jika": {
+        "item": "air_putih",
+        "nilai": "belum"
+      },
+      "rekomendasi": {
+        "tipe": "video",
+        "target": "M3-manis",
+        "judul": "Sahabat Gigi: Segarnya Air Putih",
+        "deskripsi": "Mengapa air putih adalah minuman terbaik untuk gigimu?"
+      },
+      "tip": "tip_air_putih"
+    }
+  ]
+}

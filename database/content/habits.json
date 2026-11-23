@@ -1,0 +1,156 @@
+{
+  "status": "DRAFT",
+  "keterangan": "Pertanyaan Jurnal Gigi murid SD. Disimpan dalam JSON agar dapat disunting tanpa mengubah kode. Berstatus DRAFT dan wajib divalidasi dokter gigi.",
+  "items": [
+    {
+      "kode": "sikat_pagi",
+      "urutan": 1,
+      "aktif": true,
+      "tp": "TP1",
+      "teks": "Tadi pagi, setelah sarapan, kamu sikat gigi?",
+      "acuan": "hari_ini",
+      "opsi": [
+        {
+          "nilai": "sudah",
+          "label": "Sudah",
+          "num": 1,
+          "tanggapan": "Hebat! Terima kasih sudah cerita ya!"
+        },
+        {
+          "nilai": "belum",
+          "label": "Belum",
+          "num": 0,
+          "tanggapan": "Tidak apa-apa. Terima kasih banyak sudah jujur!"
+        },
+        {
+          "nilai": "tidak_ingat",
+          "label": "Lupa",
+          "num": null,
+          "tanggapan": "Tidak apa-apa, kadang kita memang lupa."
+        }
+      ]
+    },
+    {
+      "kode": "sikat_malam",
+      "urutan": 2,
+      "aktif": true,
+      "tp": "TP1",
+      "teks": "Semalam, sebelum tidur, kamu sikat gigi?",
+      "acuan": "kemarin_malam",
+      "opsi": [
+        {
+          "nilai": "sudah",
+          "label": "Sudah",
+          "num": 1,
+          "tanggapan": "Bagus sekali! Gigi terlindungi saat tidur."
+        },
+        {
+          "nilai": "belum",
+          "label": "Belum",
+          "num": 0,
+          "tanggapan": "Terima kasih sudah jujur. Malam ini kita sikat gigi bersama yuk!"
+        },
+        {
+          "nilai": "tidak_ingat",
+          "label": "Lupa",
+          "num": null,
+          "tanggapan": "Tidak apa-apa, yang penting malam ini jangan lupa ya."
+        }
+      ]
+    },
+    {
+      "kode": "manis",
+      "urutan": 3,
+      "aktif": true,
+      "tp": "TP3",
+      "teks": "Sejak kemarin sampai sekarang, berapa kali kamu makan atau minum yang manis? Misalnya permen, cokelat, es, atau minuman manis.",
+      "acuan": "24_jam",
+      "opsi": [
+        {
+          "nilai": "0",
+          "label": "Tidak ada",
+          "num": 0,
+          "tanggapan": "Wah, keren! Kamu menjaga gigi dengan sangat baik."
+        },
+        {
+          "nilai": "1",
+          "label": "1 kali",
+          "num": 1,
+          "tanggapan": "Terima kasih sudah cerita! Ingat berkumur air putih ya."
+        },
+        {
+          "nilai": "2",
+          "label": "2 kali",
+          "num": 2,
+          "tanggapan": "Terima kasih sudah cerita! Makanan manis memang enak, gigi tetap harus dijaga."
+        },
+        {
+          "nilai": "3_plus",
+          "label": "3 kali atau lebih",
+          "num": 3,
+          "tanggapan": "Terima kasih sudah jujur! Jangan lupa sering berkumur air putih ya."
+        }
+      ]
+    },
+    {
+      "kode": "kumur",
+      "urutan": 4,
+      "aktif": true,
+      "tp": "TP1",
+      "teks": "Setelah makan atau minum manis, kamu berkumur dengan air putih?",
+      "acuan": "24_jam",
+      "tampil_jika": {
+        "item": "manis",
+        "nilai_in": ["1", "2", "3_plus"]
+      },
+      "opsi": [
+        {
+          "nilai": "ya",
+          "label": "Ya",
+          "num": 1,
+          "tanggapan": "Pintar! Berkumur membantu membersihkan sisa gula."
+        },
+        {
+          "nilai": "kadang",
+          "label": "Kadang-kadang",
+          "num": 0.5,
+          "tanggapan": "Bagus! Nanti dibiasakan berkumur setiap kali makan manis ya."
+        },
+        {
+          "nilai": "belum",
+          "label": "Belum",
+          "num": 0,
+          "tanggapan": "Terima kasih sudah jujur! Lain kali yuk coba kumur air putih."
+        }
+      ]
+    },
+    {
+      "kode": "air_putih",
+      "urutan": 5,
+      "aktif": true,
+      "tp": "TP3",
+      "teks": "Hari ini kamu sudah minum air putih?",
+      "acuan": "hari_ini",
+      "opsi": [
+        {
+          "nilai": "sudah",
+          "label": "Sudah",
+          "num": 1,
+          "tanggapan": "Hebat! Air putih sangat baik untuk tubuh dan gigimu."
+        },
+        {
+          "nilai": "belum",
+          "label": "Belum",
+          "num": 0,
+          "tanggapan": "Yuk minum segelas air putih segar sekarang!"
+        },
+        {
+          "nilai": "tidak_ingat",
+          "label": "Lupa",
+          "num": null,
+          "tanggapan": "Yuk siapkan botol minum air putih di dekatmu."
+        }
+      ]
+    }
+  ]
+}

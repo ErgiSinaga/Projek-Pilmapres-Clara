@@ -43,9 +43,20 @@ Skala respons 1-5 menggunakan ikon ekspresi wajah SVG (Sangat Tidak Setuju s/d S
 
 ---
 
-## 4. Prosedur Pembaruan Konten Setelah Validasi Dokter Gigi
+## 4. Butir Pertanyaan Jurnal Kebiasaan Gigi (`database/content/habits.json`)
+Seluruh pertanyaan kebiasaan berstatus **DRAFT** dan wajib divalidasi oleh dokter gigi:
+1. `sikat_pagi` (TP1): "Tadi pagi, setelah sarapan, kamu sikat gigi?" (Sudah / Belum / Lupa)
+2. `sikat_malam` (TP1): "Semalam, sebelum tidur, kamu sikat gigi?" (Sudah / Belum / Lupa)
+3. `manis` (TP3): "Sejak kemarin sampai sekarang, berapa kali kamu makan atau minum yang manis? Misalnya permen, cokelat, es, atau minuman manis." (0 / 1 / 2 / 3 kali atau lebih)
+4. `kumur` (TP1, tampil jika konsumsi manis $\ge 1$ kali): "Setelah makan atau minum manis, kamu berkumur dengan air putih?" (Ya / Kadang-kadang / Belum)
+5. `air_putih` (TP3): "Hari ini kamu sudah minum air putih?" (Sudah / Belum / Lupa)
+
+---
+
+## 5. Prosedur Pembaruan Konten Setelah Validasi Dokter Gigi
 1. Sunting berkas JSON terkait di folder `database/content/`:
    - `test_items.json`
+   - `habits.json`, `habit_tips.json`, `habit_rules.json`
    - `foods.json`
    - `quiz_bank.json`
    - `videos.json`

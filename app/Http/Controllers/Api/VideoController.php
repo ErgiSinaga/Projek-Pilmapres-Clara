@@ -34,15 +34,33 @@ class VideoController extends Controller
             ->get()
             ->keyBy('video_id');
 
+        $preTestFinished = $student->testAttempts()
+            ->where('jenis', 'pre')
+            ->whereNotNull('finished_at')
+            ->exists();
+
+        $surveyFinished = $student->surveyResponses()->exists();
+
         $result = [];
-        $previousCompleted = true; // Video 1 selalu terbuka
+        $previousCompleted = true; // Video inti 1 selalu terbuka
 
         foreach ($videos as $v) {
             $vid = $v['id'];
+            $tipe = $v['tipe'] ?? 'inti';
             $prog = $progresses->get($vid);
 
             $isCompleted = $prog && $prog->selesai_at !== null;
-            $unlocked = $previousCompleted;
+
+            if ($tipe === 'inti') {
+                $unlocked = $previousCompleted;
+                $previousCompleted = $isCompleted;
+            } elseif ($tipe === 'mikro' || $tipe === 'pembuka') {
+                $unlocked = $preTestFinished;
+            } elseif ($tipe === 'penutup') {
+                $unlocked = $surveyFinished;
+            } else {
+                $unlocked = true;
+            }
 
             $mediaFile = public_path('media/videos/'.($v['file'] ?? ''));
             $fileExists = File::exists($mediaFile);
@@ -50,6 +68,7 @@ class VideoController extends Controller
             $result[] = [
                 'id' => $vid,
                 'urutan' => $v['urutan'] ?? 1,
+                'tipe' => $tipe,
                 'judul' => $v['judul'] ?? '',
                 'deskripsi' => $v['deskripsi'] ?? '',
                 'tp' => $v['tp'] ?? '',
@@ -64,10 +83,9 @@ class VideoController extends Controller
                 'is_completed' => $isCompleted,
                 'has_reward' => $prog && $prog->skor_tantangan !== null,
                 'detik_ditonton' => $prog ? $prog->detik_ditonton : 0,
+                'sumber' => $prog ? $prog->sumber : null,
                 'tantangan' => $v['tantangan'] ?? [],
             ];
-
-            $previousCompleted = $isCompleted;
         }
 
         return response()->json([
@@ -82,6 +100,7 @@ class VideoController extends Controller
     {
         $validated = $request->validate([
             'detik' => ['required', 'integer', 'min:0'],
+            'sumber' => ['nullable', 'string', 'max:50'],
         ]);
 
         $student = Auth::guard('student')->user();
@@ -102,8 +121,13 @@ class VideoController extends Controller
 
         if ($detik > $prog->detik_ditonton) {
             $prog->detik_ditonton = $detik;
-            $prog->save();
         }
+
+        if (! empty($validated['sumber']) && ! $prog->sumber) {
+            $prog->sumber = $validated['sumber'];
+        }
+
+        $prog->save();
 
         return response()->json([
             'success' => true,
@@ -132,6 +156,11 @@ class VideoController extends Controller
             ['detik_ditonton' => 0]
         );
 
+        $sumber = $request->input('sumber');
+        if ($sumber && ! $prog->sumber) {
+            $prog->sumber = $sumber;
+        }
+
         $isTeacherAssisted = $request->boolean('teacher_assisted', false);
 
         // Validasi >= 90% durasi kecuali jika ditandai ditonton bersama guru
@@ -143,8 +172,24 @@ class VideoController extends Controller
             ], 422);
         }
 
+        $awardedReward = null;
         if (! $prog->selesai_at) {
             $prog->selesai_at = Carbon::now();
+
+            $tipe = $videoMeta['tipe'] ?? 'inti';
+            // Video mikro langsung dapat koin 5 & xp 5 saat pertama kali tuntas
+            if ($tipe === 'mikro' && $prog->skor_tantangan === null) {
+                $prog->skor_tantangan = 100;
+                $pet = $student->petState;
+                if ($pet) {
+                    $microReward = config('dento.habit.micro_video_reward', ['coins' => 5, 'xp' => 5]);
+                    $pet->increment('koin', $microReward['coins'] ?? 5);
+                    $pet->addXp($microReward['xp'] ?? 5);
+                    $pet->save();
+                    $awardedReward = $microReward;
+                }
+            }
+
             $prog->save();
         }
 
@@ -152,6 +197,7 @@ class VideoController extends Controller
             'success' => true,
             'completed' => true,
             'selesai_at' => $prog->selesai_at->toIso8601String(),
+            'reward' => $awardedReward,
         ]);
     }
 

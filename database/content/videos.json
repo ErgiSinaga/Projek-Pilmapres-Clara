@@ -2,6 +2,7 @@
   {
     "id": "video-1",
     "urutan": 1,
+    "tipe": "inti",
     "judul": "Kenalan dengan Gigi Sehat Kita",
     "deskripsi": "Mengenal bagian-bagian gigi anak, lapisan email yang kuat, dan mengapa gigi susu sangat penting dirawat.",
     "tp": "TP1",
@@ -29,6 +30,7 @@
   {
     "id": "video-2",
     "urutan": 2,
+    "tipe": "inti",
     "judul": "Makanan Sahabat & Makanan Perusak Gigi",
     "deskripsi": "Memilih makanan bergizi yang menyehatkan gigi dan mengenali camilan manis yang disukai kuman.",
     "tp": "TP3",
@@ -56,6 +58,7 @@
   {
     "id": "video-3",
     "urutan": 3,
+    "tipe": "inti",
     "judul": "Petualangan 2 Menit Menyikat Gigi",
     "deskripsi": "Teknik menyikat gigi yang tepat dengan gerakan melingkar lembut dan pasta gigi berfluorida.",
     "tp": "TP2",
@@ -83,6 +86,7 @@
   {
     "id": "video-4",
     "urutan": 4,
+    "tipe": "inti",
     "judul": "Gigi Berlubang & Sahabat Dokter Gigi",
     "deskripsi": "Mengenal proses terbentuknya lubang gigi dan asyiknya berkunjung ke dokter gigi secara rutin.",
     "tp": "TP4, TP5",
@@ -100,11 +104,89 @@
       },
       {
         "id": "v4_q2",
-        "pertanyaan": "Apa yang dilakukan dokter gigi saat kita melakukan pemeriksaan rutin?",
-        "opsi": ["Mengecek kebersihan gigi, mengajari cara sikat yang benar, dan merawat gigi yang butuh bantuan", "Memarahi kita jika ada gigi berlubang", "Memberikan permen manis"],
+        "pertanyaan": "Apa yang harus kita lakukan jika melihat ada titik hitam kecil di gigi kita?",
+        "opsi": ["Segera periksa ke dokter gigi agar bisa dirawat lebih awal", "Didiamkan saja sampai gigi goyang", "Ditusuk dengan benda tajam"],
         "benar": 0,
-        "alasan": "Dokter gigi adalah sahabat yang ramah dan siap membantu merawat senyum sehat kita."
+        "alasan": "Pemeriksaan dokter gigi sedini mungkin mencegah gigi berlubang semakin parah."
       }
     ]
+  },
+  {
+    "id": "M1-sikat-malam",
+    "urutan": 101,
+    "tipe": "mikro",
+    "judul": "Kenapa Sikat Gigi Malam Itu Wajib?",
+    "deskripsi": "Video singkat 45 detik: Alasan penting melindungi gigi dari kuman saat kita tidur lelap.",
+    "tp": "TP1",
+    "durasi_detik": 45,
+    "file": "m1_sikat_malam.mp4",
+    "poster": "m1_sikat_malam.png",
+    "caption_vtt": "m1_sikat_malam.vtt",
+    "tantangan": []
+  },
+  {
+    "id": "M2-sikat-pagi",
+    "urutan": 102,
+    "tipe": "mikro",
+    "judul": "Segar Seharian: Sikat Gigi Setelah Sarapan",
+    "deskripsi": "Video singkat 45 detik: Bersihkan sisa makanan sarapan agar senyum ceria dan nafas segar di sekolah.",
+    "tp": "TP1",
+    "durasi_detik": 45,
+    "file": "m2_sikat_pagi.mp4",
+    "poster": "m2_sikat_pagi.png",
+    "caption_vtt": "m2_sikat_pagi.vtt",
+    "tantangan": []
+  },
+  {
+    "id": "M3-manis",
+    "urutan": 103,
+    "tipe": "mikro",
+    "judul": "Makanan Manis & Rahasia Kuman Gigi",
+    "deskripsi": "Video singkat 45 detik: Mengapa kuman suka sekali berpesta saat ada sisa gula menempel di gigi.",
+    "tp": "TP3",
+    "durasi_detik": 45,
+    "file": "m3_manis.mp4",
+    "poster": "m3_manis.png",
+    "caption_vtt": "m3_manis.vtt",
+    "tantangan": []
+  },
+  {
+    "id": "M4-kumur",
+    "urutan": 104,
+    "tipe": "mikro",
+    "judul": "Jurus Kilat: Berkumur Air Putih",
+    "deskripsi": "Video singkat 35 detik: Langkah cepat membilas gula dan asam setelah makan atau minum manis.",
+    "tp": "TP1",
+    "durasi_detik": 35,
+    "file": "m4_kumur.mp4",
+    "poster": "m4_kumur.png",
+    "caption_vtt": "m4_kumur.vtt",
+    "tantangan": []
+  },
+  {
+    "id": "V0-pembuka",
+    "urutan": 201,
+    "tipe": "pembuka",
+    "judul": "Selamat Datang di Rumah Dento!",
+    "deskripsi": "Video pembuka: Sambutan dari Dento untuk memulai petualangan senyum sehat bersama.",
+    "tp": "TP1",
+    "durasi_detik": 40,
+    "file": "v0_pembuka.mp4",
+    "poster": "v0_pembuka.png",
+    "caption_vtt": "v0_pembuka.vtt",
+    "tantangan": []
+  },
+  {
+    "id": "VP-penutup",
+    "urutan": 202,
+    "tipe": "penutup",
+    "judul": "Pesan Kelulusan: Sahabat Dento Selamanya",
+    "deskripsi": "Video penutup: Apresiasi Dento atas ketekunanmu belajar dan merawat gigi setiap hari.",
+    "tp": "TP1",
+    "durasi_detik": 45,
+    "file": "vp_penutup.mp4",
+    "poster": "vp_penutup.png",
+    "caption_vtt": "vp_penutup.vtt",
+    "tantangan": []
   }
 ]

@@ -46,11 +46,18 @@ Sistem web game edukasi kesehatan gigi interaktif untuk murid Sekolah Dasar (SD 
    - Fallback ramah jika video belum diunggah: opsi pendampingan "Tandai sudah tonton bersama guru".
    - Kuis tantangan pemahaman berhadiah koin & XP (hanya 1x hadiah per video).
 
-5. **Sertifikat Pahlawan Gigi & Kuesioner Kepuasan**:
+5. **Jurnal Gigi (Habit Tracker & Indikator Perilaku)**:
+   - **Sesi Ideal Pemicu Otomatis**: Muncul dialog sapaan ramah Dento pada login pertama setiap hari di Rumah Dento (*"Yuk cerita tentang gigimu hari ini!"*) dengan opsi *"Ayo Cerita"* atau *"Nanti Dulu"*.
+   - **Akses Mandiri Navigasi Dok**: Tombol ke-7 **Jurnal** di dok bawah Rumah Dento dengan badge titik merah jika hari ini belum mengisi.
+   - **Kualitas Data & Kejujuran Anak**: Hadiah lapor tetap flat (+8 Koin, +10 XP, +5 Kebahagiaan) untuk jawaban apa pun. Status `kebersihan` Dento **sama sekali tidak dipengaruhi** isi laporan. Dento selalu merespons ramah dan suportif (tidak pernah sedih/bingung).
+   - **Rekomendasi Adaptif**: Maksimal 1 rekomendasi kontekstual per hari dari aturan prioritas `habit_rules.json`.
+   - **Ringkasan Jurnal**: Kalender 14 hari lapor (hanya menandai hari sudah lapor, tanpa tanda silang/merah/gagal), rekap 7 hari diri sendiri, runtun lapor hari sekolah (streak), dan lencana *Pencerita*.
+
+6. **Sertifikat Pahlawan Gigi & Kuesioner Kepuasan**:
    - Kuesioner kepuasan 6 butir menggunakan skala wajah SVG ramah anak.
    - Halaman sertifikat resmi memuat kode peserta, nama karakter Dento, capaian level, stempel verifikasi Pilmapres, dan layout cetak rapi (`@media print`).
 
-6. **Privasi Penuh (Zero PII)**:
+7. **Privasi Penuh (Zero PII)**:
    - Sistem **sama sekali tidak menyimpan nama asli, email, atau foto murid** di database.
    - Murid masuk hanya dengan **Kode Peserta** (`{SEKOLAH}-{NN}`) dan **PIN 4 digit**.
 

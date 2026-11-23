@@ -80,12 +80,25 @@ class PetController extends Controller
                 $activeDays = $student->active_days_count;
                 $videosDone = VideoProgress::where('student_id', $student->id)->whereNotNull('selesai_at')->count();
                 $petLevel = $pet->level ?? 1;
+                $checkinsDone = $student->completed_checkins_count;
 
                 $postTestUnlocked = $activeDays >= ($postConfig['min_active_days'] ?? 3)
                     && $videosDone >= ($postConfig['min_videos'] ?? 4)
-                    && $petLevel >= ($postConfig['min_level'] ?? 3);
+                    && $petLevel >= ($postConfig['min_level'] ?? 3)
+                    && $checkinsDone >= ($postConfig['min_checkins'] ?? 3);
             }
         }
+
+        // Status Jurnal Kebiasaan hari ini
+        $todayCheckin = $student->today_checkin;
+        $isPreFinished = $preTest && $preTest->finished_at !== null;
+        $todayStatus = $todayCheckin ? $todayCheckin->status : 'belum';
+        $dilewatiCount = $todayCheckin ? $todayCheckin->dilewati_count : 0;
+        $promptToday = $isPreFinished
+            && config('dento.habit.enabled', true)
+            && config('dento.habit.prompt_on_first_login_of_day', true)
+            && $todayStatus !== 'selesai'
+            && $dilewatiCount === 0;
 
         return response()->json([
             'student' => [
@@ -97,12 +110,20 @@ class PetController extends Controller
             'equipped' => $equipped,
             'pre_test' => [
                 'started' => $preTest !== null,
-                'finished' => $preTest && $preTest->finished_at !== null,
+                'finished' => $isPreFinished,
             ],
             'post_test' => [
                 'unlocked' => $postTestUnlocked,
                 'started' => $postTest !== null,
                 'finished' => $postTest && $postTest->finished_at !== null,
+            ],
+            'habit' => [
+                'enabled' => config('dento.habit.enabled', true),
+                'today_done' => $todayStatus === 'selesai',
+                'today_status' => $todayStatus,
+                'prompt_today' => $promptToday,
+                'dilewati_count' => $dilewatiCount,
+                'streak' => $student->school_days_streak,
             ],
         ]);
     }

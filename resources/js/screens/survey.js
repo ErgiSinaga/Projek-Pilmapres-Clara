@@ -131,8 +131,8 @@ export async function createSurveyScreen(container, router) {
 
     try {
       await api.post('/api/survey', { responses: payload });
-      alert('Terima kasih banyak atas penilaianmu! Kamu anak yang hebat.');
-      router.navigate('certificate');
+      alert('Terima kasih banyak atas penilaianmu! Yuk tonton video penutup spesial dari Dento!');
+      router.navigate('videos?v=VP-penutup&src=penutup');
     } catch (err) {
       alert('Gagal mengirim kuesioner. Silakan coba lagi.');
       submitBtn.disabled = false;
