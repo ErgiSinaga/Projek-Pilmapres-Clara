@@ -19,6 +19,10 @@ class SoundManager {
     return this.muted;
   }
 
+  play(name) {
+    this.playEffect(name);
+  }
+
   playEffect(name) {
     if (this.muted || !this.hasUserInteracted) return;
     // Audio synthesizer Web Audio API sederhana jika file audio lokal belum tersedia
@@ -29,14 +33,14 @@ class SoundManager {
       osc.connect(gain);
       gain.connect(ctx.destination);
 
-      if (name === 'pop') {
-        osc.frequency.setValueAtTime(440, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1);
-        gain.gain.setValueAtTime(0.1, ctx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+      if (name === 'pop' || name === 'coin') {
+        osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.12);
         osc.start();
-        osc.stop(ctx.currentTime + 0.1);
-      } else if (name === 'jump') {
+        osc.stop(ctx.currentTime + 0.12);
+      } else if (name === 'jump' || name === 'levelUp') {
         osc.frequency.setValueAtTime(320, ctx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(640, ctx.currentTime + 0.15);
         gain.gain.setValueAtTime(0.1, ctx.currentTime);

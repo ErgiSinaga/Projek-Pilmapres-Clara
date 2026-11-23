@@ -46,17 +46,14 @@ export async function createJurnalScreen(container, router) {
   let currentIndex = 0;
   let startTime = Date.now();
 
-  // Cari index pertanyaan pertama yang belum dijawab
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].is_visible && !items[i].jawaban) {
-      currentIndex = i;
-      break;
-    }
-  }
-
   function getActiveVisibleItems() {
     return items.filter(it => it.is_visible);
   }
+
+  // Cari index pertanyaan pertama yang belum dijawab pada daftar yang terlihat
+  const initialVisible = getActiveVisibleItems();
+  const firstUnanswered = initialVisible.findIndex(it => !it.jawaban);
+  currentIndex = firstUnanswered !== -1 ? firstUnanswered : 0;
 
   function renderCurrentQuestion() {
     const visibleList = getActiveVisibleItems();
@@ -169,7 +166,9 @@ export async function createJurnalScreen(container, router) {
         btn.style.borderColor = '#0D9488';
         btn.style.background = '#CCFBF1';
 
-        sound.play('coin');
+        try {
+          sound.playEffect('pop');
+        } catch (e) {}
 
         let resp = null;
         try {
@@ -184,52 +183,63 @@ export async function createJurnalScreen(container, router) {
           return;
         }
 
-        // Simpan jawaban lokal untuk re-evaluasi tampil_jika
-        item.jawaban = { nilai: nilai };
+        try {
+          // Simpan jawaban lokal untuk re-evaluasi tampil_jika
+          item.jawaban = { nilai: nilai };
 
-        // Evaluasi ulang tampil_jika untuk item-item berikutnya
-        items.forEach(it => {
-          if (it.tampil_jika) {
-            const cond = it.tampil_jika;
-            const parent = items.find(p => p.kode === cond.item);
-            if (parent && parent.jawaban && cond.nilai_in.includes(parent.jawaban.nilai)) {
-              it.is_visible = true;
-            } else {
-              it.is_visible = false;
+          // Evaluasi ulang tampil_jika untuk item-item berikutnya
+          items.forEach(it => {
+            if (it.tampil_jika) {
+              const cond = it.tampil_jika;
+              const parent = items.find(p => p.kode === cond.item);
+              if (parent && parent.jawaban && cond.nilai_in.includes(parent.jawaban.nilai)) {
+                it.is_visible = true;
+              } else {
+                it.is_visible = false;
+              }
+            }
+          });
+
+          // Tampilkan tanggapan Dento yang suportif dan netral
+          const bubble = container.querySelector('#jurnal-speech-bubble');
+          const feedback = container.querySelector('#feedback-text');
+          if (feedback && resp && resp.tanggapan) {
+            feedback.textContent = resp.tanggapan;
+            feedback.style.color = '#0D9488';
+            feedback.style.fontWeight = '800';
+            feedback.style.fontSize = '15px';
+          }
+
+          // Update pose Dento menjadi senang & melambai
+          if (mascot) {
+            if (typeof mascot.set === 'function') {
+              mascot.set({ expression: 'senang', pose: 'lambai' });
+            }
+            if (typeof mascot.react === 'function') {
+              mascot.react('jump');
             }
           }
-        });
 
-        // Tampilkan tanggapan Dento yang suportif dan netral selama 1.5 detik
-        const bubble = container.querySelector('#jurnal-speech-bubble');
-        const feedback = container.querySelector('#feedback-text');
-        if (bubble && feedback && resp.tanggapan) {
-          feedback.textContent = resp.tanggapan;
-          feedback.style.color = '#0D9488';
-          feedback.style.fontWeight = '800';
-          feedback.style.fontSize = '15px';
+          // Lanjut otomatis setelah 1.4 detik atau jika user klik bubble
+          let advanced = false;
+          const advanceNext = () => {
+            if (!advanced) {
+              advanced = true;
+              currentIndex++;
+              renderCurrentQuestion();
+            }
+          };
+
+          const timer = setTimeout(advanceNext, 1400);
+          bubble?.addEventListener('click', () => {
+            clearTimeout(timer);
+            advanceNext();
+          }, { once: true });
+        } catch (e) {
+          console.error('Error advancing question:', e);
+          currentIndex++;
+          renderCurrentQuestion();
         }
-
-        // Update pose Dento menjadi senang & melambai
-        if (mascot && mascot.update) {
-          mascot.update({ expression: 'senang', pose: 'lambai' });
-        }
-
-        // Lanjut otomatis setelah 1.5 detik atau jika user klik bubble
-        let advanced = false;
-        const advanceNext = () => {
-          if (!advanced) {
-            advanced = true;
-            currentIndex++;
-            renderCurrentQuestion();
-          }
-        };
-
-        const timer = setTimeout(advanceNext, 1400);
-        bubble?.addEventListener('click', () => {
-          clearTimeout(timer);
-          advanceNext();
-        }, { once: true });
       });
     });
   }
@@ -243,7 +253,9 @@ export async function createJurnalScreen(container, router) {
 
     try {
       const res = await api.post('/api/jurnal/selesai');
-      sound.play('levelUp');
+      try {
+        sound.playEffect('jump');
+      } catch (e) {}
       renderCompletionScreen(container, router, res.reward, res.rekomendasi, false);
     } catch (err) {
       if (err.status === 409) {

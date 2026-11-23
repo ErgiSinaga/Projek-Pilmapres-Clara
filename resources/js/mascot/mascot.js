@@ -97,7 +97,7 @@ export function createMascot(host, initial = {}, { animated = true, size = 400, 
   if (enableClick) host.addEventListener('click', onClick);
 
   return {
-    set, react, speak,
+    set, update: set, react, speak,
     destroy() {
       clearInterval(speakTimer); clearTimeout(idleTimer); cancelAnimationFrame(raf);
       removeEventListener('pointermove', onMove);
